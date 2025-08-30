@@ -1,6 +1,9 @@
 extends CharacterBody3D
 class_name Player
 
+const AIR_DEACCEL = 3.0
+const GROUND_DEACCEL = 8.0
+
 ## Can we move around?
 @export var can_move : bool = true
 ## Are we affected by gravity?
@@ -62,12 +65,18 @@ func _physics_process(delta: float) -> void:
 
 	var input_dir := Input.get_vector("left", "right", "forward", "back") 
 	var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if move_dir:
-		velocity.x = move_dir.x * move_speed
-		velocity.z = move_dir.z * move_speed
+	# Only allow the player to control horizontal movement when they are on the floor. 
+	if is_on_floor():
+		if move_dir:
+			velocity.x = move_dir.x * move_speed
+			velocity.z = move_dir.z * move_speed
+		else:
+			velocity.x = lerp(velocity.x, move_dir.x * move_speed, delta * GROUND_DEACCEL)
+			velocity.z = lerp(velocity.z, move_dir.z * move_speed, delta * GROUND_DEACCEL)
 	else:
-		velocity.x = 0.0
-		velocity.z = 0.0
+		velocity.x = lerp(velocity.x, move_dir.x * move_speed, delta * AIR_DEACCEL)
+		velocity.z = lerp(velocity.z, move_dir.z * move_speed, delta * AIR_DEACCEL)
+		
 			
 	# Camera headbobbing
 	current_bob_time += delta * velocity.length() * float(is_on_floor())
