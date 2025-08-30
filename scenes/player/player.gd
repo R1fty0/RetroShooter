@@ -1,8 +1,12 @@
 extends CharacterBody3D
 class_name Player
 
-const AIR_DEACCEL = 3.0
-const GROUND_DEACCEL = 8.0
+
+## TODO:
+## - change max speed used for camera fov effects
+
+const AIR_DEACCEL: float = 3.0
+const GROUND_DEACCEL: float = 8.0
 
 ## Can we move around?
 @export var can_move : bool = true
@@ -24,10 +28,14 @@ const GROUND_DEACCEL = 8.0
 @export var sprint_speed : float = 10.0
 ## How fast do we freefly?
 
+## Camera headbobbing. 
 @export var bob_freq: float = 2.0
 @export var bob_amp: float = 0.08
 var current_bob_time: float = 0.0
 
+## Camera fov.
+const BASE_FOV: float = 75.0
+const FOV_CHANGE: float = 1.5
 
 var mouse_captured : bool = false
 var look_rotation : Vector2
@@ -78,10 +86,15 @@ func _physics_process(delta: float) -> void:
 		velocity.z = lerp(velocity.z, move_dir.z * move_speed, delta * AIR_DEACCEL)
 		
 			
-	# Camera headbobbing
+	# Camera headbobbing.
 	current_bob_time += delta * velocity.length() * float(is_on_floor())
 	camera.transform.origin = _get_camera_next_headbob_pos(current_bob_time)
 	move_and_slide()
+	
+	# Camera fov changes.
+	var velocity_clamped = clamp(velocity.length(), 0.5, move_speed * 2)
+	var target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped
+	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
 
 func _get_camera_next_headbob_pos(bob_time):
 	var pos = Vector3.ZERO
