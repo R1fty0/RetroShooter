@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bnc565g0rcg1r"]
+[gd_scene load_steps=11 format=3 uid="uid://bnc565g0rcg1r"]
 
 [ext_resource type="Texture2D" uid="uid://c2nkdho5d1ng0" path="res://assets/textures/prototype/texture_03.png" id="1_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://bydxsfxkrklh7" path="res://assets/textures/prototype/texture_01.png" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://b8ixtymwutihb" path="res://scenes/player/player.tscn" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://crinamgv4lklh" path="res://scenes/ui/dash_counter.gd" id="4_jyhfs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -24,10 +25,21 @@ uv1_triplanar = true
 albedo_texture = ExtResource("1_o5qli")
 uv1_triplanar = true
 
+[sub_resource type="LabelSettings" id="LabelSettings_sugp2"]
+font_color = Color(0, 0, 0, 1)
+
 [node name="Main" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("3_sugp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.94828, 0, 0)
+
+[node name="DashController" parent="Player" index="2"]
+dash_velocity = 100.0
+dash_cooldown = 0.2
+
+[node name="DashDurationTimer" parent="Player/DashController" index="1"]
+one_shot = true
+autostart = false
 
 [node name="Environment" type="Node" parent="."]
 
@@ -48,3 +60,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 1, 2)
 material_override = SubResource("StandardMaterial3D_o6xl0")
 use_collision = true
 size = Vector3(12, 1, 15)
+
+[node name="Platform2" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6267, 2.5, 2)
+material_override = SubResource("StandardMaterial3D_o6xl0")
+use_collision = true
+size = Vector3(2, 4, 15)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DashCounter" type="Label" parent="UI" node_paths=PackedStringArray("dash_controller")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Dashes: 3"
+label_settings = SubResource("LabelSettings_sugp2")
+horizontal_alignment = 1
+script = ExtResource("4_jyhfs")
+dash_controller = NodePath("../../Player/DashController")
+
+[editable path="Player"]
