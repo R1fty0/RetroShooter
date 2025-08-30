@@ -1,13 +1,11 @@
 extends Node
 class_name DashController
 
-signal start_dash(dash_velocity)
+signal start_dash
 signal end_dash
 
-## How fast does the player move while dashing.
-@export var dash_velocity: float = 100
 ## How long does a single dash last for. 
-@export var dash_duration: float = 0.2
+@export var dash_duration: float = 0.02
 ## How long does it take for each dash to recharge 
 @export var dash_cooldown: float = 1.0
 ## How many potenial dashes can the player have at one time. 
@@ -30,19 +28,16 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	# Prevent the player from dashing if they are out of dashes. 
 	if current_dash_count <= 0:
-		print("hi")
 		can_dash = false
 		return
 	if event.is_action_pressed("dash") and can_dash:
-		start_dash.emit(dash_velocity)
+		start_dash.emit()
 		current_dash_count -= 1
 		dash_duration_timer.start()
 		can_dash = false
 
-
 func _on_dash_cooldown_timer_timeout() -> void:
 	current_dash_count += 1
-
 
 func _on_dash_duration_timer_timeout() -> void:
 	end_dash.emit()

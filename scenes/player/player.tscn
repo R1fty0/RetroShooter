@@ -9,7 +9,6 @@ height = 1.8
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_8afob")
-can_sprint = true
 jump_velocity = 6.5
 
 [node name="Collider" type="CollisionShape3D" parent="."]
@@ -23,8 +22,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
 [node name="DashController" type="Node" parent="."]
 script = ExtResource("2_dovo2")
-dash_velocity = 1000.0
-dash_duration = 1.0
+dash_duration = 0.01
+dash_cooldown = 1.2
 
 [node name="DashCooldownTimer" type="Timer" parent="DashController"]
 one_shot = true

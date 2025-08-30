@@ -1,33 +1,19 @@
 extends CharacterBody3D
 class_name Player
 
-
-## TODO:
-## - change max speed used for camera fov effects
-
 const AIR_DEACCEL: float = 3.0
 const GROUND_DEACCEL: float = 8.0
 
-## Can we move around?
-@export var can_move : bool = true
-## Are we affected by gravity?
-@export var has_gravity : bool = true
-## Can we press to jump?
-@export var can_jump : bool = true
-## Can we hold to run?
-@export var can_sprint : bool = false
 
-@export_group("Speeds")
-## Look around rotation speed.
-@export var look_speed : float = 0.002
+@export_group("Movement")
+@export var dash_speed: float = 23.0
 ## Normal speed.
-@export var base_speed : float = 7.0
+@export var run_speed : float = 7.0
 ## Speed of jump.
 @export var jump_velocity : float = 4.5
-## How fast do we run?
-@export var sprint_speed : float = 10.0
-## How fast do we freefly?
 
+@export_group("Camera")
+@export var camera_sens : float = 0.002
 ## Camera headbobbing. 
 @export var bob_freq: float = 2.0
 @export var bob_amp: float = 0.08
@@ -46,9 +32,12 @@ var move_speed : float = 0.0
 @onready var collider: CollisionShape3D = $Collider
 @onready var camera: Camera3D = $Head/Camera3D
 
+var dashing: bool = false
+
 func _ready() -> void:
 	look_rotation.y = rotation.y
 	look_rotation.x = head.rotation.x
+	move_speed = run_speed
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Mouse capturing
@@ -63,7 +52,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	move_speed = base_speed
 	if not is_on_floor():
 		var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 		velocity.y -= gravity * delta
@@ -73,8 +61,12 @@ func _physics_process(delta: float) -> void:
 
 	var input_dir := Input.get_vector("left", "right", "forward", "back") 
 	var move_dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	# Only allow the player to control horizontal movement when they are on the floor. 
-	if is_on_floor():
+	
+	if dashing: 
+		velocity = move_dir * dash_speed
+		
+	# Only allow the player to control horizontal movement when they are on the floor and not dashing. 
+	if is_on_floor() and !dashing:
 		if move_dir:
 			velocity.x = move_dir.x * move_speed
 			velocity.z = move_dir.z * move_speed
@@ -92,7 +84,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	# Camera fov changes.
-	var velocity_clamped = clamp(velocity.length(), 0.5, move_speed * 2)
+	var velocity_clamped = clamp(velocity.length(), 0.5, dash_speed * 2)
 	var target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped
 	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
 
@@ -102,33 +94,31 @@ func _get_camera_next_headbob_pos(bob_time):
 	pos.x = cos(bob_time * bob_freq/2) * bob_amp
 	return pos
 
-
 ## Rotate us to look around.
 ## Base of controller rotates around y (left/right). Head rotates around x (up/down).
 ## Modifies look_rotation based on rot_input, then resets basis and rotates by look_rotation.
 func rotate_look(rot_input : Vector2):
-	look_rotation.x -= rot_input.y * look_speed
+	look_rotation.x -= rot_input.y * camera_sens
 	look_rotation.x = clamp(look_rotation.x, deg_to_rad(-85), deg_to_rad(85))
-	look_rotation.y -= rot_input.x * look_speed
+	look_rotation.y -= rot_input.x * camera_sens
 	transform.basis = Basis()
 	rotate_y(look_rotation.y)
 	head.transform.basis = Basis()
 	head.rotate_x(look_rotation.x)
 
-# Hide mouse cursor 
+## Hide mouse cursor 
 func capture_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	mouse_captured = true
 
-# Show mouse cursor
+## Show mouse cursor
 func release_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	mouse_captured = false
 
 
 func _on_dash_controller_end_dash() -> void:
-	# move_speed = base_speed
-	pass
+	dashing = false
 
-func _on_dash_controller_start_dash(dash_velocity: Variant) -> void:
-	pass
+func _on_dash_controller_start_dash() -> void:
+	dashing = true
