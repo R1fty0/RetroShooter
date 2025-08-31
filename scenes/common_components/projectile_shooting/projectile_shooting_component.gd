@@ -28,10 +28,11 @@ func _shoot() -> void:
 	# Add projectile to scene. 
 	get_tree().current_scene.add_child(new_projectile)
 	new_projectile.global_position = projectile_spawn_point.global_position
-	new_projectile.rotation = projectile_spawn_point.rotation
+	new_projectile.global_rotation = projectile_spawn_point.global_rotation
 
 	# Setup projectile stats
-	new_projectile.gravity_scale = 0.0
+	# Make the projectile face forward relative to what direction the gun is pointing at.
+	new_projectile.direction = projectile_spawn_point.global_transform.basis.z * -1
 	new_projectile.target_group = projectile_target_group
 	new_projectile.damage = projectile_damage
 	new_projectile.speed = projectile_speed

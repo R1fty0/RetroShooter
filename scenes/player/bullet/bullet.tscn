@@ -7,9 +7,8 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_pyopn"]
 size = Vector3(0.247559, 0.242249, 0.491119)
 
-[node name="Bullet" type="RigidBody3D"]
+[node name="Bullet" type="Area3D"]
 script = ExtResource("1_xikvv")
-metadata/_custom_type_script = "uid://kvpyy7bela82"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.239324, 0, 0, 0, 0.233985, 0, 0, 0, 0.497622, 0, 0, 0)

@@ -1,4 +1,4 @@
-extends RigidBody3D
+extends Area3D
 class_name Projectile
 
 ## All of these settings are usually set by the projectile shooting component. 
@@ -6,11 +6,15 @@ class_name Projectile
 var target_group: String = "player" 
 var damage: float = 10.0
 var speed: float = 40.0
+var direction: Vector3 = Vector3.FORWARD
 
-func _ready() -> void:
-	# Add velocity to bullet when it is spawned to make it travel forward. 
-	var impulse = Vector3.FORWARD * speed
-	linear_velocity = impulse
+func _physics_process(delta: float) -> void:
+	var velocity = direction * speed
+	# Move bullet forward.
+	global_position += velocity * delta
+	# Make bullet spin during movement. 
+	if velocity.length() > 0:
+		look_at(global_position + velocity, Vector3.UP)
 
 func _on_body_entered(body: Node) -> void:
 	print("ive hit something")
