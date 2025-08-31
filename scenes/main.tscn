@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bnc565g0rcg1r"]
+[gd_scene load_steps=13 format=3 uid="uid://bnc565g0rcg1r"]
 
 [ext_resource type="Texture2D" uid="uid://c2nkdho5d1ng0" path="res://assets/textures/prototype/texture_03.png" id="1_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://bydxsfxkrklh7" path="res://assets/textures/prototype/texture_01.png" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://b8ixtymwutihb" path="res://scenes/player/player.tscn" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://crinamgv4lklh" path="res://scenes/ui/dash_counter.gd" id="4_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://6b8nf1utvjxk" path="res://assets/textures/prototype/texture_02.png" id="4_tbgi4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -25,6 +26,9 @@ uv1_triplanar = true
 albedo_texture = ExtResource("1_o5qli")
 uv1_triplanar = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tipki"]
+albedo_texture = ExtResource("4_tbgi4")
+
 [sub_resource type="LabelSettings" id="LabelSettings_sugp2"]
 font_color = Color(0, 0, 0, 1)
 
@@ -32,6 +36,7 @@ font_color = Color(0, 0, 0, 1)
 
 [node name="Player" parent="." instance=ExtResource("3_sugp2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.94828, 0, 0)
+dash_speed = 15.0
 
 [node name="DashController" parent="Player" index="2"]
 dash_cooldown = 0.2
@@ -60,6 +65,24 @@ material_override = SubResource("StandardMaterial3D_o6xl0")
 use_collision = true
 size = Vector3(12, 1, 15)
 
+[node name="Platform3" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3387, 1.63901, -8.88046)
+material_override = SubResource("StandardMaterial3D_tipki")
+use_collision = true
+size = Vector3(4.46301, 1, 4.30469)
+
+[node name="Platform4" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3387, 2.63901, 3.99799)
+material_override = SubResource("StandardMaterial3D_tipki")
+use_collision = true
+size = Vector3(4.46301, 1, 4.30469)
+
+[node name="Platform5" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.3387, 2.63901, -15.5084)
+material_override = SubResource("StandardMaterial3D_tipki")
+use_collision = true
+size = Vector3(4.46301, 1, 4.30469)
+
 [node name="Platform2" type="CSGBox3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6267, 2.5, 2)
 material_override = SubResource("StandardMaterial3D_o6xl0")
@@ -74,10 +97,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = -447.0
+offset_top = 196.0
+offset_right = -373.0
+offset_bottom = 219.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4

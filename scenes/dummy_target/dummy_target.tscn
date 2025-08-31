@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://qb1hjy67bcgj"]
+
+[ext_resource type="Script" uid="uid://cxe6wigtm4atd" path="res://scenes/common_components/hitbox/hitbox.gd" id="1_pdk6f"]
+[ext_resource type="Script" uid="uid://dqgtdhcgutyyh" path="res://scenes/common_components/health/health_component.gd" id="3_schw8"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8x61w"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hbkh6"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_pdk6f"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_schw8"]
+
+[node name="DummyTarget" type="Node3D"]
+
+[node name="NormalHitPoint" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.995452, 0)
+mesh = SubResource("CapsuleMesh_8x61w")
+skeleton = NodePath("../CriticalHitPoint")
+
+[node name="Hitbox" type="Area3D" parent="NormalHitPoint"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.995452, 0)
+script = ExtResource("1_pdk6f")
+metadata/_custom_type_script = "uid://cxe6wigtm4atd"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NormalHitPoint/Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_hbkh6")
+
+[node name="CriticalHitPoint" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2.18997, 0)
+mesh = SubResource("SphereMesh_pdk6f")
+
+[node name="Hitbox" type="Area3D" parent="CriticalHitPoint"]
+script = ExtResource("1_pdk6f")
+metadata/_custom_type_script = "uid://cxe6wigtm4atd"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CriticalHitPoint/Hitbox"]
+shape = SubResource("SphereShape3D_schw8")
+
+[node name="HealthComponent" type="Node" parent="CriticalHitPoint"]
+script = ExtResource("3_schw8")
+metadata/_custom_type_script = "uid://dqgtdhcgutyyh"

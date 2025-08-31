@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuknilvisd6ti"]
+
+[ext_resource type="Script" uid="uid://cqsku5tnr4gdw" path="res://scenes/common_components/projectile_shooting/projectile_shooting_component.gd" id="1_1fu3q"]
+
+[node name="ProjectileShootingComponent" type="Node"]
+script = ExtResource("1_1fu3q")
+
+[node name="ProjectileSpawnPoint" type="Marker3D" parent="."]
