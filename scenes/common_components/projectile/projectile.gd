@@ -9,20 +9,34 @@ var speed: float = 40.0
 var direction: Vector3 = Vector3.FORWARD
 
 func _physics_process(delta: float) -> void:
-	var velocity = direction * speed
-	# Move bullet forward.
-	global_position += velocity * delta
-	# Make bullet spin during movement. 
-	if velocity.length() > 0:
-		look_at(global_position + velocity, Vector3.UP)
+	var displacement = direction.normalized() * speed * delta
+	_projectile_raycasting(displacement)
+	# Move projectile if we don't hit anything. 
+	global_position += displacement
+	# Rotate to face movement direction
+	look_at(global_position + displacement, Vector3.UP)
 
-func _on_body_entered(body: Node) -> void:
-	print("ive hit something")
-	# Check if we wanna damage this thing and damage it. 
+func _projectile_raycasting(displacement: Vector3):
+	# Raycasting for projectile collisions. 
+	# Create ray parameters
+	var ray_params = PhysicsRayQueryParameters3D.new()
+	ray_params.from = global_position
+	ray_params.to = global_position + displacement
+	ray_params.exclude = [self]
+
+	# Cast the ray
+	var space_state = get_world_3d().direct_space_state
+	var result = space_state.intersect_ray(ray_params)
+	# Trigger collision handling. 
+	if result:
+		var hit_body = result.collider
+		_handle_hit(hit_body)
+		queue_free()
+		
+func _handle_hit(body: Node) -> void:
+	print("Hit: " + body.name)
+	print("Group: " + str(body.get_groups()))
 	if body.is_in_group(target_group):
-		if body is Hitbox:
-			if body.health_component != null:
-				body.health_component._take_damage(damage)
-				print("We've damaged something")
-	# Destroy the bullet. 
-	queue_free()
+		if body is Hitbox and body.health_component != null:
+			body.health_component._take_damage(damage)
+			print("We've damaged something")
