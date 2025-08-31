@@ -43,5 +43,4 @@ func _shoot() -> void:
 
 
 func _on_fire_rate_timer_timeout() -> void:
-	print("can shoot again")
 	can_fire = true

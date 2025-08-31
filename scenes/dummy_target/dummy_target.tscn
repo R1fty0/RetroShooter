@@ -6,10 +6,12 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8x61w"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hbkh6"]
+radius = 0.61666
 
 [sub_resource type="SphereMesh" id="SphereMesh_pdk6f"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_schw8"]
+radius = 0.682784
 
 [node name="DummyTarget" type="Node3D"]
 
@@ -21,12 +23,14 @@ skeleton = NodePath("../CriticalHitPoint")
 [node name="Hitbox" type="Area3D" parent="NormalHitPoint" node_paths=PackedStringArray("health_component")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.995452, 0)
 script = ExtResource("1_pdk6f")
+target_group = "enemy"
 health_component = NodePath("../../CriticalHitPoint/HealthComponent")
 metadata/_custom_type_script = "uid://cxe6wigtm4atd"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NormalHitPoint/Hitbox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_hbkh6")
+debug_color = Color(0.955963, 9.62615e-08, 0.540447, 0.42)
 
 [node name="CriticalHitPoint" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2.18997, 0)
@@ -34,11 +38,13 @@ mesh = SubResource("SphereMesh_pdk6f")
 
 [node name="Hitbox" type="Area3D" parent="CriticalHitPoint" node_paths=PackedStringArray("health_component")]
 script = ExtResource("1_pdk6f")
+target_group = "enemy"
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://cxe6wigtm4atd"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CriticalHitPoint/Hitbox"]
 shape = SubResource("SphereShape3D_schw8")
+debug_color = Color(0.972396, 0, 0.441336, 0.42)
 
 [node name="HealthComponent" type="Node" parent="CriticalHitPoint"]
 script = ExtResource("3_schw8")

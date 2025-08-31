@@ -4,3 +4,5 @@
 
 [node name="Hitbox" type="Area3D"]
 script = ExtResource("1_johii")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
