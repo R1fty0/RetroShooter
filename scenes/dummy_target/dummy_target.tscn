@@ -18,9 +18,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.995452, 0)
 mesh = SubResource("CapsuleMesh_8x61w")
 skeleton = NodePath("../CriticalHitPoint")
 
-[node name="Hitbox" type="Area3D" parent="NormalHitPoint"]
+[node name="Hitbox" type="Area3D" parent="NormalHitPoint" node_paths=PackedStringArray("health_component")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.995452, 0)
 script = ExtResource("1_pdk6f")
+health_component = NodePath("../../CriticalHitPoint/HealthComponent")
 metadata/_custom_type_script = "uid://cxe6wigtm4atd"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NormalHitPoint/Hitbox"]
@@ -31,8 +32,9 @@ shape = SubResource("CapsuleShape3D_hbkh6")
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2.18997, 0)
 mesh = SubResource("SphereMesh_pdk6f")
 
-[node name="Hitbox" type="Area3D" parent="CriticalHitPoint"]
+[node name="Hitbox" type="Area3D" parent="CriticalHitPoint" node_paths=PackedStringArray("health_component")]
 script = ExtResource("1_pdk6f")
+health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://cxe6wigtm4atd"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CriticalHitPoint/Hitbox"]

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8ixtymwutihb"]
+[gd_scene load_steps=5 format=3 uid="uid://b8ixtymwutihb"]
 
 [ext_resource type="Script" uid="uid://bhscu0608f1kp" path="res://scenes/player/player.gd" id="1_8afob"]
 [ext_resource type="Script" uid="uid://chokm0odynl6t" path="res://scenes/player/dash/dash_controller.gd" id="2_dovo2"]
+[ext_resource type="PackedScene" uid="uid://dpcel3p2m0p2l" path="res://scenes/player/gun/gun.tscn" id="3_gmlin"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iof21"]
 radius = 0.4
@@ -20,6 +21,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
+[node name="Gun" parent="Head" instance=ExtResource("3_gmlin")]
+transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0.404294, -0.11731, -0.726918)
+
 [node name="DashController" type="Node" parent="."]
 script = ExtResource("2_dovo2")
 dash_duration = 0.01
@@ -35,3 +39,5 @@ autostart = true
 [connection signal="start_dash" from="DashController" to="." method="_on_dash_controller_start_dash"]
 [connection signal="timeout" from="DashController/DashCooldownTimer" to="DashController" method="_on_dash_cooldown_timer_timeout"]
 [connection signal="timeout" from="DashController/DashDurationTimer" to="DashController" method="_on_dash_duration_timer_timeout"]
+
+[editable path="Head/Gun"]

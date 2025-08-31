@@ -1,22 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dq5yd82yt3bi1"]
+[gd_scene load_steps=2 format=3 uid="uid://dq5yd82yt3bi1"]
 
 [ext_resource type="Script" uid="uid://kvpyy7bela82" path="res://scenes/common_components/projectile/projectile.gd" id="1_p0ko3"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_0oy22"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_xikvv"]
-size = Vector3(0.211304, 0.141167, 0.357353)
-
-[node name="Projectile" type="RigidBody3D" groups=["enemy", "player"]]
+[node name="Projectile" type="RigidBody3D"]
 gravity_scale = 0.0
 script = ExtResource("1_p0ko3")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.173492, 0, 0, 0, 0.141924, 0, 0, 0, 0.361748, 0, 0, 0)
-mesh = SubResource("BoxMesh_0oy22")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00701904, 0.00127029, -0.00111008)
-shape = SubResource("BoxShape3D_xikvv")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

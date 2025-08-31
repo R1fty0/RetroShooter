@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://0w1orcsp1ssl"]
+
+[ext_resource type="Script" uid="uid://kvpyy7bela82" path="res://scenes/common_components/projectile/projectile.gd" id="1_xikvv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xikvv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pyopn"]
+size = Vector3(0.247559, 0.242249, 0.491119)
+
+[node name="Bullet" type="RigidBody3D"]
+script = ExtResource("1_xikvv")
+metadata/_custom_type_script = "uid://kvpyy7bela82"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.239324, 0, 0, 0, 0.233985, 0, 0, 0, 0.497622, 0, 0, 0)
+mesh = SubResource("BoxMesh_xikvv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00756836, 0.00375366, 0.000991821)
+shape = SubResource("BoxShape3D_pyopn")

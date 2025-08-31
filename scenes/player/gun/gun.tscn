@@ -1,15 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://c046xrayxr732"]
+[gd_scene load_steps=5 format=3 uid="uid://dpcel3p2m0p2l"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_af14l"]
-size = Vector3(0.5, 0.75, 2)
+[ext_resource type="PackedScene" uid="uid://cuknilvisd6ti" path="res://scenes/common_components/projectile_shooting/projectile_shooting_component.tscn" id="1_k3w1v"]
+[ext_resource type="PackedScene" uid="uid://0w1orcsp1ssl" path="res://scenes/player/bullet/bullet.tscn" id="2_fxov8"]
 
-[node name="Gun" type="Node"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_k3w1v"]
 
-[node name="BarrelMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-mesh = SubResource("BoxMesh_af14l")
+[sub_resource type="BoxMesh" id="BoxMesh_fxov8"]
 
-[node name="StockMesh" type="MeshInstance3D" parent="BarrelMesh"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -1, 0.628113)
-mesh = SubResource("BoxMesh_af14l")
-skeleton = NodePath("../..")
+[node name="Gun" type="Node3D"]
+
+[node name="Barrel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1)
+mesh = SubResource("CylinderMesh_k3w1v")
+
+[node name="Stock" type="MeshInstance3D" parent="Barrel"]
+transform = Transform3D(0.676119, 0, 0, 0, 1, 0, 0, 0, 1.97764, 0, -1, -0.746301)
+mesh = SubResource("BoxMesh_fxov8")
+
+[node name="ProjectileShootingComponent" parent="Barrel" instance=ExtResource("1_k3w1v")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.03827, 4.53841e-08)
+projectile = ExtResource("2_fxov8")
+projectile_target_group = "enemy"
+projectile_damage = 10.0
+projectile_speed = 40.0
+
+[editable path="Barrel/ProjectileShootingComponent"]

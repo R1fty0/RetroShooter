@@ -2,7 +2,12 @@
 
 [ext_resource type="Script" uid="uid://cqsku5tnr4gdw" path="res://scenes/common_components/projectile_shooting/projectile_shooting_component.gd" id="1_1fu3q"]
 
-[node name="ProjectileShootingComponent" type="Node"]
+[node name="ProjectileShootingComponent" type="Node3D"]
 script = ExtResource("1_1fu3q")
 
 [node name="ProjectileSpawnPoint" type="Marker3D" parent="."]
+
+[node name="FireRateTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="FireRateTimer" to="." method="_on_fire_rate_timer_timeout"]

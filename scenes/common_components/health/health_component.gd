@@ -16,7 +16,9 @@ func _take_damage(amount: float):
 	else:
 		current_health -= amount
 		took_damage.emit()
+		print("Ouch")
 
 func _die():
 	died.emit()
+	print("Ahhhhh")
 	queue_free()
