@@ -30,7 +30,7 @@ projectile_damage = 20.0
 [node name="DashController" parent="." instance=ExtResource("3_lvxji")]
 dash_speed = 25.0
 dash_recharge_time = 2.25
-max_dash_count = 2
+max_dash_count = 4
 
 [editable path="Head/Gun"]
 [editable path="Head/Gun/Barrel/ProjectileShootingComponent"]

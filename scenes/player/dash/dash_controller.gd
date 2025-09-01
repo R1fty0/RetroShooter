@@ -36,7 +36,7 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	# Prevent the player from dashing if they are out of dashes. 
-	if current_dash_count == 0:
+	if current_dash_count <= 0:
 		can_dash = false
 		return
 	# Start a dash. 
@@ -60,6 +60,10 @@ func _on_dash_duration_timer_timeout() -> void:
 	can_dash = true
 
 func _on_dash_recharge_timer_timeout() -> void:
+	# Allow the player to dash if they bottom out and a dash recharges.
 	if current_dash_count <= 0:
 		can_dash = true
+	# Start another recharge if the player is not full on dashes.
+	if current_dash_count < max_dash_count:
+		dash_recharge_timer.start()
 	current_dash_count += 1
