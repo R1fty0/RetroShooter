@@ -7,9 +7,12 @@ signal reloaded
 
 ## How long does the gun wait before being able to fire the next shot. 
 @export var time_between_shots: float = 0.5
+## Is this component controlable by the player?
+@export var is_player: bool = true
 
 @export_category("Projectile")
 @export var projectile: PackedScene
+## What group of objects the projectile will damage. 
 @export var projectile_target_group: String
 @export var projectile_damage: float
 @export var projectile_speed: float
@@ -32,6 +35,9 @@ func _ready() -> void:
 	reload_timer.wait_time = std_reload_time
 	
 func _input(event: InputEvent) -> void:
+	# Don't run this code if the player isn't controlling this component. 
+	if !is_player:
+		return
 	# Allow the player to manually reload if they have a partially full magazine (a.k.a tactical reload).
 	if event.is_action_pressed("reload") and current_ammo_count < magazine_size and reload_timer.is_stopped():
 		_reload(true)

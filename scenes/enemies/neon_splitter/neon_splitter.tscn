@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=3 uid="uid://05yy7j4syiig"]
+
+[ext_resource type="Texture2D" uid="uid://cim53nvvnjq43" path="res://assets/textures/prototype/texture_06.png" id="1_ljxip"]
+[ext_resource type="PackedScene" uid="uid://c6b1b7qmtrblg" path="res://scenes/enemies/neon_splitter/projectile/neon_spiltter_projectile.tscn" id="3_ae82n"]
+[ext_resource type="Script" uid="uid://dqgtdhcgutyyh" path="res://common/components/health/health_component.gd" id="3_icg7l"]
+[ext_resource type="Script" uid="uid://cxe6wigtm4atd" path="res://common/components/hitbox/hitbox.gd" id="4_ae82n"]
+[ext_resource type="PackedScene" uid="uid://cuknilvisd6ti" path="res://common/components/projectile_shooting/projectile_shooting_component.tscn" id="4_gvb5u"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_7saq8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8x742"]
+albedo_texture = ExtResource("1_ljxip")
+uv1_triplanar = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_icg7l"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gvb5u"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4gsnm"]
+radius = 0.55154
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_4gijl"]
+height = 0.962158
+radius = 0.164551
+
+[node name="NeonSplitter" type="CharacterBody3D"]
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_7saq8")
+surface_material_override/0 = SubResource("StandardMaterial3D_8x742")
+
+[node name="Barrel" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(0.281355, 0, 0, 0, 2.12616e-05, -0.290526, 0, 0.110726, 5.57862e-05, 0, 0.0618244, 0.520791)
+mesh = SubResource("CylinderMesh_icg7l")
+
+[node name="PhysicalCollider" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_gvb5u")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("3_icg7l")
+max_health = 60.0
+metadata/_custom_type_script = "uid://dqgtdhcgutyyh"
+
+[node name="Hitboxes" type="Node" parent="."]
+
+[node name="MainHitbox" type="Area3D" parent="Hitboxes" node_paths=PackedStringArray("health_component")]
+script = ExtResource("4_ae82n")
+target_group = "enemy"
+health_component = NodePath("../../HealthComponent")
+metadata/_custom_type_script = "uid://cxe6wigtm4atd"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitboxes/MainHitbox"]
+shape = SubResource("SphereShape3D_4gsnm")
+debug_color = Color(0.604382, 0.0660814, 0.70412, 0.42)
+
+[node name="CritHitbox" type="Area3D" parent="Hitboxes" node_paths=PackedStringArray("health_component")]
+script = ExtResource("4_ae82n")
+target_group = "enemy"
+health_component = NodePath("../../HealthComponent")
+damage_multiplier = 2.5
+metadata/_custom_type_script = "uid://cxe6wigtm4atd"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitboxes/CritHitbox"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.0706267, 0.15686)
+shape = SubResource("CylinderShape3D_4gijl")
+debug_color = Color(0.603922, 0, 0, 1)
+
+[node name="ProjectileShootingComponent" parent="." instance=ExtResource("4_gvb5u")]
+time_between_shots = 0.25
+is_player = false
+projectile = ExtResource("3_ae82n")
+projectile_target_group = "player"
+projectile_damage = 50.0
+projectile_speed = 45.0
+magazine_size = 4
+std_reload_time = 2.0
+tac_reload_time = 0.0
+
+[node name="ProjectileSpawnPoint" parent="ProjectileShootingComponent" index="0"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0.633012)
+
+[editable path="ProjectileShootingComponent"]

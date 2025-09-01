@@ -1,11 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://bnc565g0rcg1r"]
+[gd_scene load_steps=27 format=3 uid="uid://bnc565g0rcg1r"]
 
 [ext_resource type="PackedScene" uid="uid://b8ixtymwutihb" path="res://scenes/player/player.tscn" id="1_5rc8b"]
 [ext_resource type="Texture2D" uid="uid://c2nkdho5d1ng0" path="res://assets/textures/prototype/texture_03.png" id="2_kby6h"]
 [ext_resource type="Texture2D" uid="uid://bydxsfxkrklh7" path="res://assets/textures/prototype/texture_01.png" id="3_v37dk"]
 [ext_resource type="Texture2D" uid="uid://6b8nf1utvjxk" path="res://assets/textures/prototype/texture_02.png" id="4_rr5ke"]
+[ext_resource type="Texture2D" uid="uid://nitosdmisenb" path="res://assets/textures/prototype/texture_04.png" id="5_kby6h"]
 [ext_resource type="PackedScene" uid="uid://quq3nl58vl68" path="res://scenes/ui/ui_manager/ui_manager.tscn" id="5_kuiqi"]
 [ext_resource type="PackedScene" uid="uid://rly8w7ex0y72" path="res://scenes/ui/dash_counter/dash_counter.tscn" id="6_u5idm"]
+[ext_resource type="Texture2D" uid="uid://dmj0mlvjwwb5y" path="res://assets/textures/prototype/texture_05.png" id="6_v37dk"]
 [ext_resource type="PackedScene" uid="uid://cxryb8gnft8lh" path="res://scenes/ui/ammo_counter/ammo_counter.tscn" id="7_aiq5i"]
 [ext_resource type="Script" uid="uid://bpiqikyrbdi67" path="res://scenes/ui/ammo_counter/ammo_counter.gd" id="8_3o1ak"]
 [ext_resource type="Texture2D" uid="uid://cj6v8a1uklihq" path="res://assets/ui/crosshair_plus.png" id="9_tbbnb"]
@@ -35,6 +37,21 @@ uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tipki"]
 albedo_texture = ExtResource("4_rr5ke")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v37dk"]
+albedo_texture = ExtResource("5_kby6h")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kby6h"]
+albedo_texture = ExtResource("5_kby6h")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rr5ke"]
+albedo_texture = ExtResource("6_v37dk")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kuiqi"]
+albedo_texture = ExtResource("6_v37dk")
+uv1_triplanar = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_tipki"]
 font_color = Color(0, 0, 0, 1)
@@ -99,6 +116,79 @@ material_override = SubResource("StandardMaterial3D_o6xl0")
 use_collision = true
 size = Vector3(2, 4, 15)
 
+[node name="CorridorGreybox" type="Node3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
+
+[node name="Corridor" type="CSGCombiner3D" parent="Environment/CorridorGreybox"]
+use_collision = true
+
+[node name="Walls" type="CSGBox3D" parent="Environment/CorridorGreybox/Corridor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.71369, 2.93843, -20.1842)
+size = Vector3(12.563, 5.1239, 44.4465)
+material = SubResource("StandardMaterial3D_v37dk")
+
+[node name="Space" type="CSGBox3D" parent="Environment/CorridorGreybox/Corridor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.78418, 2.55248, -19.8613)
+operation = 2
+size = Vector3(11.2899, 3.91113, 43.8997)
+material = SubResource("StandardMaterial3D_kby6h")
+
+[node name="Lights" type="Node" parent="Environment/CorridorGreybox"]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Environment/CorridorGreybox/Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1.37871, 4.12898, -23.874)
+spot_range = 8.042
+spot_attenuation = -1.15
+spot_angle = 43.29
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Environment/CorridorGreybox/Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.806846, 4.12898, -35.874)
+spot_range = 8.042
+spot_attenuation = -1.15
+spot_angle = 43.29
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Environment/CorridorGreybox/Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.806846, 4.12898, -59.874)
+spot_range = 8.042
+spot_attenuation = -1.15
+spot_angle = 43.29
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="Environment/CorridorGreybox/Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 4.19315, 4.12898, -48.874)
+spot_range = 8.042
+spot_attenuation = -1.15
+spot_angle = 43.29
+
+[node name="Boxes" type="Node" parent="Environment/CorridorGreybox"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Environment/CorridorGreybox/Boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.66821, 2.10435, -20)
+material_override = SubResource("StandardMaterial3D_rr5ke")
+use_collision = true
+size = Vector3(4.33643, 2.78625, 1)
+material = SubResource("StandardMaterial3D_kuiqi")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Environment/CorridorGreybox/Boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.71838, 1.49787, -31)
+material_override = SubResource("StandardMaterial3D_rr5ke")
+use_collision = true
+size = Vector3(1.56323, 1.5733, 1)
+material = SubResource("StandardMaterial3D_kuiqi")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Environment/CorridorGreybox/Boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.28162, 1.49787, -41)
+material_override = SubResource("StandardMaterial3D_rr5ke")
+use_collision = true
+size = Vector3(1.56323, 1.5733, 1)
+material = SubResource("StandardMaterial3D_kuiqi")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Environment/CorridorGreybox/Boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.71838, 1.49787, -54)
+material_override = SubResource("StandardMaterial3D_rr5ke")
+use_collision = true
+size = Vector3(1.56323, 1.5733, 1)
+material = SubResource("StandardMaterial3D_kuiqi")
+
 [node name="UIManager" parent="." instance=ExtResource("5_kuiqi")]
 
 [node name="DashCounter" parent="UIManager" node_paths=PackedStringArray("dash_controller") instance=ExtResource("6_u5idm")]
@@ -121,10 +211,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 4.0
-offset_top = -8.0
-offset_right = 20.0
-offset_bottom = 8.0
+offset_left = 15.0
+offset_top = -4.0
+offset_right = 31.0
+offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_tbbnb")
@@ -134,7 +224,9 @@ offset_left = 128.0
 offset_top = 466.0
 offset_right = 180.0
 offset_bottom = 489.0
+text = "Health: 100.0"
 label_settings = SubResource("LabelSettings_5rc8b")
+ellipsis_char = ""
 script = ExtResource("11_txg7v")
 player_health_component = NodePath("../../Player/HealthComponent")
 
