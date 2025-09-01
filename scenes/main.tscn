@@ -42,6 +42,10 @@ outline_color = Color(0, 0, 0, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.94828, 0, 0)
 dash_speed = 15.0
 
+[node name="ProjectileShootingComponent" parent="Player/Head/Gun/Barrel" index="1"]
+std_reload_time = 5.0
+tac_reload_time = 1.25
+
 [node name="DashController" parent="Player" index="2"]
 dash_cooldown = 0.2
 

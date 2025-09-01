@@ -29,7 +29,7 @@ var move_speed : float = 0.0
 
 ## IMPORTANT REFERENCES
 @onready var head: Node3D = $Head
-@onready var collider: CollisionShape3D = $Collider
+@onready var collider: CollisionShape3D = $PhysicalCollider
 @onready var camera: Camera3D = $Head/Camera3D
 
 var dashing: bool = false

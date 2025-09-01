@@ -25,6 +25,5 @@ projectile_target_group = "enemy"
 projectile_damage = 10.0
 projectile_speed = 80.0
 magazine_size = 8
-reload_time = 2.25
 
 [editable path="Barrel/ProjectileShootingComponent"]

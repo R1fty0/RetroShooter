@@ -17,7 +17,6 @@ func take_damage(amount: float):
 	if amount >= current_health: 
 		_die()
 	else:
-		print("Took " + str(amount) + " damage.")
 		current_health -= amount
 		took_damage.emit()
 
