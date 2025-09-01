@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dpcel3p2m0p2l"]
 
-[ext_resource type="PackedScene" uid="uid://cuknilvisd6ti" path="res://scenes/common_components/projectile_shooting/projectile_shooting_component.tscn" id="1_k3w1v"]
+[ext_resource type="PackedScene" uid="uid://cuknilvisd6ti" path="res://common/components/projectile_shooting/projectile_shooting_component.tscn" id="1_k3w1v"]
 [ext_resource type="PackedScene" uid="uid://0w1orcsp1ssl" path="res://scenes/player/bullet/bullet.tscn" id="2_fxov8"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_k3w1v"]

@@ -24,6 +24,7 @@ SignalBus="*res://scripts/singletons/signal_bus.gd"
 folder_colors={
 "res://addons/": "red",
 "res://assets/": "orange",
+"res://common/": "purple",
 "res://scenes/": "yellow",
 "res://scripts/": "green"
 }

@@ -14,7 +14,7 @@ func _physics_process(delta: float) -> void:
 	# Move projectile if we don't hit anything. 
 	global_position += displacement
 	# Rotate to face movement direction
-	look_at(global_position + displacement, Vector3.UP)
+	##look_at(global_position + displacement, Vector3.UP)
 
 func _projectile_col_detection(displacement: Vector3):
 	# Raycasting for projectile collisions. 

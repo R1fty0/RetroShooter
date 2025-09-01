@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cr3bjsvyqo2uj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_choun"]
+
+[node name="HealthBar" type="Label"]
+offset_top = 8.0
+offset_right = 52.0
+offset_bottom = 31.0
+text = "Health"
+label_settings = SubResource("LabelSettings_choun")
+horizontal_alignment = 1
+vertical_alignment = 1

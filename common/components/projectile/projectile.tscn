@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dq5yd82yt3bi1"]
 
-[ext_resource type="Script" uid="uid://kvpyy7bela82" path="res://scenes/common_components/projectile/projectile.gd" id="1_p0ko3"]
+[ext_resource type="Script" uid="uid://kvpyy7bela82" path="res://common/components/projectile/projectile.gd" id="1_p0ko3"]
 
 [node name="Projectile" type="RigidBody3D"]
 gravity_scale = 0.0

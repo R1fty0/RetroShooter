@@ -1,12 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8ixtymwutihb"]
+[gd_scene load_steps=8 format=3 uid="uid://b8ixtymwutihb"]
 
 [ext_resource type="Script" uid="uid://bhscu0608f1kp" path="res://scenes/player/player.gd" id="1_8afob"]
 [ext_resource type="PackedScene" uid="uid://dpcel3p2m0p2l" path="res://scenes/player/gun/gun.tscn" id="3_gmlin"]
 [ext_resource type="PackedScene" uid="uid://wi4yg3d0clp1" path="res://scenes/player/dash/dash_controller.tscn" id="3_lvxji"]
+[ext_resource type="Script" uid="uid://dqgtdhcgutyyh" path="res://common/components/health/health_component.gd" id="4_p47bc"]
+[ext_resource type="Script" uid="uid://cxe6wigtm4atd" path="res://common/components/hitbox/hitbox.gd" id="5_75vfm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iof21"]
 radius = 0.4
 height = 1.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0owmy"]
+radius = 0.44892
+height = 1.7849
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_8afob")
@@ -31,6 +37,21 @@ projectile_damage = 20.0
 dash_speed = 25.0
 dash_recharge_time = 2.25
 max_dash_count = 4
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_p47bc")
+metadata/_custom_type_script = "uid://dqgtdhcgutyyh"
+
+[node name="Hitbox" type="Area3D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("5_75vfm")
+target_group = "player"
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://cxe6wigtm4atd"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.896644, 0)
+shape = SubResource("CapsuleShape3D_0owmy")
+debug_color = Color(0.394795, 0.123824, 0.882574, 0.42)
 
 [editable path="Head/Gun"]
 [editable path="Head/Gun/Barrel/ProjectileShootingComponent"]

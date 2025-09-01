@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bnc565g0rcg1r"]
+[gd_scene load_steps=20 format=3 uid="uid://bnc565g0rcg1r"]
 
 [ext_resource type="Texture2D" uid="uid://c2nkdho5d1ng0" path="res://assets/textures/prototype/texture_03.png" id="1_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://bydxsfxkrklh7" path="res://assets/textures/prototype/texture_01.png" id="1_o5qli"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://cxryb8gnft8lh" path="res://scenes/ui/ammo_counter/ammo_counter.tscn" id="6_tipki"]
 [ext_resource type="Script" uid="uid://bpiqikyrbdi67" path="res://scenes/ui/ammo_counter/ammo_counter.gd" id="7_85g3d"]
 [ext_resource type="Texture2D" uid="uid://cj6v8a1uklihq" path="res://assets/ui/crosshair_plus.png" id="8_85g3d"]
+[ext_resource type="PackedScene" uid="uid://cr3bjsvyqo2uj" path="res://scenes/ui/health_bar/health_bar.tscn" id="10_eb6dy"]
+[ext_resource type="Script" uid="uid://dgh4fb172joau" path="res://scenes/ui/health_bar/health_bar.gd" id="11_trceg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -123,6 +125,9 @@ offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("8_85g3d")
+
+[node name="HealthBar" parent="UIManager" instance=ExtResource("10_eb6dy")]
+script = ExtResource("11_trceg")
 
 [node name="Enemies" type="Node" parent="."]
 

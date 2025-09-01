@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://qb1hjy67bcgj"]
 
-[ext_resource type="Script" uid="uid://cxe6wigtm4atd" path="res://scenes/common_components/hitbox/hitbox.gd" id="1_pdk6f"]
-[ext_resource type="Script" uid="uid://dqgtdhcgutyyh" path="res://scenes/common_components/health/health_component.gd" id="3_schw8"]
+[ext_resource type="Script" uid="uid://cxe6wigtm4atd" path="res://common/components/hitbox/hitbox.gd" id="1_pdk6f"]
+[ext_resource type="Script" uid="uid://dqgtdhcgutyyh" path="res://common/components/health/health_component.gd" id="3_schw8"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8x61w"]
 
