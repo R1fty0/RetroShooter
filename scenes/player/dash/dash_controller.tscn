@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://wi4yg3d0clp1"]
+
+[ext_resource type="Script" uid="uid://chokm0odynl6t" path="res://scenes/player/dash/dash_controller.gd" id="1_dbe17"]
+
+[node name="DashController" type="Node"]
+script = ExtResource("1_dbe17")
+dash_duration = 0.03
+
+[node name="DashCooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DashDurationTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="DashRechargeDelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
+[connection signal="timeout" from="DashDurationTimer" to="." method="_on_dash_duration_timer_timeout"]
+[connection signal="timeout" from="DashRechargeDelayTimer" to="." method="_on_dash_recharge_delay_timer_timeout"]
