@@ -19,9 +19,12 @@ mesh = SubResource("BoxMesh_fxov8")
 
 [node name="ProjectileShootingComponent" parent="Barrel" instance=ExtResource("1_k3w1v")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.03827, 4.53841e-08)
+time_between_shots = 0.25
 projectile = ExtResource("2_fxov8")
 projectile_target_group = "enemy"
 projectile_damage = 10.0
-projectile_speed = 40.0
+projectile_speed = 80.0
+magazine_size = 8
+reload_time = 2.25
 
 [editable path="Barrel/ProjectileShootingComponent"]

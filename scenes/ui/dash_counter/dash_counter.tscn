@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://rly8w7ex0y72"]
+
+[ext_resource type="Script" uid="uid://crinamgv4lklh" path="res://scenes/ui/dash_counter/dash_counter.gd" id="1_ve6ta"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sugp2"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="DashCounter" type="Label" node_paths=PackedStringArray("dash_controller")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -447.0
+offset_top = 196.0
+offset_right = -373.0
+offset_bottom = 219.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "Dashes: 3"
+label_settings = SubResource("LabelSettings_sugp2")
+horizontal_alignment = 1
+script = ExtResource("1_ve6ta")
+dash_controller = NodePath("")

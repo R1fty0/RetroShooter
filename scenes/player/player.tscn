@@ -10,9 +10,10 @@ height = 1.8
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_8afob")
-jump_velocity = 6.5
+dash_speed = 100.0
+jump_velocity = 8.0
 
-[node name="Collider" type="CollisionShape3D" parent="."]
+[node name="PhysicalCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_iof21")
 
@@ -25,12 +26,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0.404294, -0.11731, -0.726918)
 
 [node name="ProjectileShootingComponent" parent="Head/Gun/Barrel" index="1"]
-projectile_damage = 25.0
-projectile_speed = 80.0
+projectile_damage = 20.0
 
 [node name="DashController" type="Node" parent="."]
 script = ExtResource("2_dovo2")
-dash_duration = 0.01
+dash_duration = 0.03
 dash_cooldown = 1.2
 
 [node name="DashCooldownTimer" type="Timer" parent="DashController"]

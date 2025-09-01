@@ -1,11 +1,12 @@
 extends Node
 class_name HealthComponent
 
+## NOTE:
+## - this component must be the child of whatever object you want dead when its health runs out.
+
 signal died 
 signal took_damage
 
-## The object/node to destroy when health fully depletes. 
-@export var object: Node3D
 @export var max_health: float = 100
 var current_health: float = 100
 
@@ -16,11 +17,11 @@ func take_damage(amount: float):
 	if amount >= current_health: 
 		_die()
 	else:
+		print("Took " + str(amount) + " damage.")
 		current_health -= amount
-		print("Current Health: " + str(current_health))
 		took_damage.emit()
 
 func _die():
 	died.emit()
-	object.queue_free()
+	get_parent().queue_free()
 	

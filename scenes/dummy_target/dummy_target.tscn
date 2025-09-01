@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://qb1hjy67bcgj"]
+[gd_scene load_steps=8 format=3 uid="uid://qb1hjy67bcgj"]
 
 [ext_resource type="Script" uid="uid://cxe6wigtm4atd" path="res://scenes/common_components/hitbox/hitbox.gd" id="1_pdk6f"]
 [ext_resource type="Script" uid="uid://dqgtdhcgutyyh" path="res://scenes/common_components/health/health_component.gd" id="3_schw8"]
@@ -13,7 +13,11 @@ radius = 0.61666
 [sub_resource type="SphereShape3D" id="SphereShape3D_schw8"]
 radius = 0.682784
 
-[node name="DummyTarget" type="Node3D"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_schw8"]
+radius = 0.527099
+height = 2.46817
+
+[node name="DummyTarget" type="CharacterBody3D"]
 
 [node name="NormalHitPoint" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.995452, 0)
@@ -24,7 +28,7 @@ skeleton = NodePath("../CriticalHitPoint")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.995452, 0)
 script = ExtResource("1_pdk6f")
 target_group = "enemy"
-health_component = NodePath("../../CriticalHitPoint/HealthComponent")
+health_component = NodePath("../../HealthComponent")
 metadata/_custom_type_script = "uid://cxe6wigtm4atd"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NormalHitPoint/Hitbox"]
@@ -39,7 +43,7 @@ mesh = SubResource("SphereMesh_pdk6f")
 [node name="Hitbox" type="Area3D" parent="CriticalHitPoint" node_paths=PackedStringArray("health_component")]
 script = ExtResource("1_pdk6f")
 target_group = "enemy"
-health_component = NodePath("../HealthComponent")
+health_component = NodePath("../../HealthComponent")
 damage_multiplier = 2.0
 metadata/_custom_type_script = "uid://cxe6wigtm4atd"
 
@@ -47,7 +51,11 @@ metadata/_custom_type_script = "uid://cxe6wigtm4atd"
 shape = SubResource("SphereShape3D_schw8")
 debug_color = Color(0.972396, 0, 0.441336, 0.42)
 
-[node name="HealthComponent" type="Node" parent="CriticalHitPoint" node_paths=PackedStringArray("object")]
+[node name="PhysicalCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20647, 0)
+shape = SubResource("CapsuleShape3D_schw8")
+debug_color = Color(1.29953e-06, 0.636504, 0.404056, 0.42)
+
+[node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("3_schw8")
-object = NodePath("../..")
 metadata/_custom_type_script = "uid://dqgtdhcgutyyh"
