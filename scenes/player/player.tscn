@@ -25,6 +25,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0.404294, -0.11731, -0.726918)
 
 [node name="ProjectileShootingComponent" parent="Head/Gun/Barrel" index="1"]
+projectile_damage = 25.0
 projectile_speed = 80.0
 
 [node name="DashController" type="Node" parent="."]

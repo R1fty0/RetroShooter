@@ -40,12 +40,14 @@ mesh = SubResource("SphereMesh_pdk6f")
 script = ExtResource("1_pdk6f")
 target_group = "enemy"
 health_component = NodePath("../HealthComponent")
+damage_multiplier = 2.0
 metadata/_custom_type_script = "uid://cxe6wigtm4atd"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CriticalHitPoint/Hitbox"]
 shape = SubResource("SphereShape3D_schw8")
 debug_color = Color(0.972396, 0, 0.441336, 0.42)
 
-[node name="HealthComponent" type="Node" parent="CriticalHitPoint"]
+[node name="HealthComponent" type="Node" parent="CriticalHitPoint" node_paths=PackedStringArray("object")]
 script = ExtResource("3_schw8")
+object = NodePath("../..")
 metadata/_custom_type_script = "uid://dqgtdhcgutyyh"

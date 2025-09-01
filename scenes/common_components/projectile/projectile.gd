@@ -31,14 +31,11 @@ func _projectile_col_detection(displacement: Vector3):
 	# Trigger collision handling. 
 	if result:
 		var hit_body = result.collider
-		print("Collider Name: " + result.collider.name)
 		_handle_hit(hit_body)
 		queue_free()
 		
 func _handle_hit(body: Node) -> void:
-	print("Hit: " + body.name)
-	print("Group: " + str(body.get_groups()))
 	if body.is_in_group(target_group):
 		if body is Hitbox and body.health_component != null:
-			body.health_component._take_damage(damage)
-			print("We've damaged something")
+			var total_damage = damage * body.damage_multiplier
+			body.health_component.take_damage(total_damage)
