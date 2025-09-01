@@ -1,9 +1,6 @@
 extends Node
 class_name DashController
 
-signal start_dash
-signal end_dash
-
 ## How long does a single dash last for. 
 @export var dash_duration: float = 0.02
 ## How long does it take for each dash to recharge 
@@ -16,7 +13,7 @@ signal end_dash
 ## References
 @onready var player: CharacterBody3D = $".."
 ## Timer that manages how long dashes take to recharge (yes I know the naming is stupid, should be recharge). 
-@onready var dash_cooldown_timer: Timer = $DashCooldownTimer
+@onready var dash_recharge_timer: Timer = $DashRechargeTimer
 @onready var dash_duration_timer: Timer = $DashDurationTimer
 @onready var dash_recharge_delay_timer: Timer = $DashRechargeDelayTimer
 
@@ -25,7 +22,7 @@ var can_dash: bool = true
 var can_recharge_dash: bool = true
 
 func _ready() -> void:
-	dash_cooldown_timer.wait_time = dash_recharge_time
+	dash_recharge_timer.wait_time = dash_recharge_time
 	dash_duration_timer.wait_time = dash_duration
 	dash_recharge_delay_timer.wait_time = dash_recharge_delay
 	current_dash_count = max_dash_count
@@ -36,32 +33,32 @@ func _input(event: InputEvent) -> void:
 		can_dash = false
 		return
 	if event.is_action_pressed("dash") and can_dash:
-		start_dash.emit()
+		SignalBus.start_player_dash.emit()
 		current_dash_count -= 1
 		# Reset the recharge dash timer and start the recharge delay timer 
 		# if the player uses dash before a dash fully recharges. 
-		if !dash_cooldown_timer.is_stopped():
+		if !dash_recharge_timer.is_stopped():
 			# Start the recharge delay timer.
 			dash_recharge_delay_timer.start()
 			can_recharge_dash = false
 			# Reset the recharge dash timer
-			dash_cooldown_timer.wait_time = dash_recharge_time
+			dash_recharge_timer.wait_time = dash_recharge_time
 		else:
 			dash_recharge_delay_timer.start()
 			can_recharge_dash = false
 		can_dash = false
 
-func _on_dash_cooldown_timer_timeout() -> void:
-	current_dash_count += 1
-	# Keep recharing dashes if we are still missing dashes. 
-	if can_recharge_dash and current_dash_count < max_dash_count and dash_cooldown_timer.is_stopped():
-		dash_cooldown_timer.start()
-
 func _on_dash_duration_timer_timeout() -> void:
-	end_dash.emit()
-	dash_cooldown_timer.start()
+	SignalBus.end_player_dash.emit()
+	dash_recharge_timer.start()
 	can_dash = true
 	
 func _on_dash_recharge_delay_timer_timeout() -> void:
-	dash_cooldown_timer.start()
+	dash_recharge_timer.start()
 	can_recharge_dash = true
+
+func _on_dash_recharge_timer_timeout() -> void:
+	current_dash_count += 1
+	# Keep recharing dashes if we are still missing dashes. 
+	if can_recharge_dash and current_dash_count < max_dash_count and dash_recharge_timer.is_stopped():
+		dash_recharge_timer.start()

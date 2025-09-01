@@ -15,12 +15,17 @@ run/main_scene="uid://bnc565g0rcg1r"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SignalBus="*res://scripts/singletons/signal_bus.gd"
+
 [file_customization]
 
 folder_colors={
 "res://addons/": "red",
 "res://assets/": "orange",
-"res://scenes/": "yellow"
+"res://scenes/": "yellow",
+"res://scripts/": "green"
 }
 
 [global_group]
