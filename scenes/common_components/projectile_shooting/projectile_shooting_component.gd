@@ -33,14 +33,13 @@ func _ready() -> void:
 	
 func _input(event: InputEvent) -> void:
 	# Allow the player to manually reload if they have a partially full magazine (a.k.a tactical reload).
-	if event.is_action_pressed("reload") and current_ammo_count < magazine_size:
+	if event.is_action_pressed("reload") and current_ammo_count < magazine_size and reload_timer.is_stopped():
 		_reload(true)
 	if event.is_action_pressed("shoot") and can_fire:
 		# Trigger a reload if the player tries shooting with an empty magazine. 
 		if current_ammo_count <= 0:
 			_reload(false)
 		else:
-			print("pew")
 			_shoot()
 
 func _shoot() -> void:
