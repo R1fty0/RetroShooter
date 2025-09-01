@@ -53,5 +53,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.896644, 0)
 shape = SubResource("CapsuleShape3D_0owmy")
 debug_color = Color(0.394795, 0.123824, 0.882574, 0.42)
 
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+
 [editable path="Head/Gun"]
 [editable path="Head/Gun/Barrel/ProjectileShootingComponent"]

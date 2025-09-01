@@ -126,3 +126,6 @@ func _end_dash() -> void:
 
 func _start_dash() -> void:
 	dashing = true
+
+func _on_health_component_died() -> void:
+	SignalBus.player_died.emit()

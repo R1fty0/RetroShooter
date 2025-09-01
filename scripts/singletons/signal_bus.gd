@@ -5,3 +5,5 @@ extends Node
 
 signal start_player_dash
 signal end_player_dash
+
+signal player_died
