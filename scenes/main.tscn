@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bnc565g0rcg1r"]
+[gd_scene load_steps=17 format=3 uid="uid://bnc565g0rcg1r"]
 
 [ext_resource type="Texture2D" uid="uid://c2nkdho5d1ng0" path="res://assets/textures/prototype/texture_03.png" id="1_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://bydxsfxkrklh7" path="res://assets/textures/prototype/texture_01.png" id="1_o5qli"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://qb1hjy67bcgj" path="res://scenes/dummy_target/dummy_target.tscn" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://cxryb8gnft8lh" path="res://scenes/ui/ammo_counter/ammo_counter.tscn" id="6_tipki"]
 [ext_resource type="Script" uid="uid://bpiqikyrbdi67" path="res://scenes/ui/ammo_counter/ammo_counter.gd" id="7_85g3d"]
+[ext_resource type="Texture2D" uid="uid://cj6v8a1uklihq" path="res://assets/ui/crosshair_plus.png" id="8_85g3d"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -43,8 +44,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.94828, 0, 0)
 dash_speed = 15.0
 
 [node name="ProjectileShootingComponent" parent="Player/Head/Gun/Barrel" index="1"]
-std_reload_time = 5.0
-tac_reload_time = 1.25
+std_reload_time = 1.0
+tac_reload_time = 0.5
 
 [node name="DashController" parent="Player" index="2"]
 dash_cooldown = 0.2
@@ -63,35 +64,38 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="Ground" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.482178, 0, -2.12012)
 material_override = SubResource("StandardMaterial3D_tefeu")
 use_collision = true
-size = Vector3(100, 1, 100)
+size = Vector3(26.8716, 1, 33.7598)
 
-[node name="Platform" type="CSGBox3D" parent="Environment"]
+[node name="Platforms" type="Node" parent="Environment"]
+
+[node name="Platform" type="CSGBox3D" parent="Environment/Platforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 1, 2)
 material_override = SubResource("StandardMaterial3D_o6xl0")
 use_collision = true
 size = Vector3(12, 1, 15)
 
-[node name="Platform3" type="CSGBox3D" parent="Environment"]
+[node name="Platform3" type="CSGBox3D" parent="Environment/Platforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3387, 1.63901, -8.88046)
 material_override = SubResource("StandardMaterial3D_tipki")
 use_collision = true
 size = Vector3(4.46301, 1, 4.30469)
 
-[node name="Platform4" type="CSGBox3D" parent="Environment"]
+[node name="Platform4" type="CSGBox3D" parent="Environment/Platforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3387, 2.63901, 3.99799)
 material_override = SubResource("StandardMaterial3D_tipki")
 use_collision = true
 size = Vector3(4.46301, 1, 4.30469)
 
-[node name="Platform5" type="CSGBox3D" parent="Environment"]
+[node name="Platform5" type="CSGBox3D" parent="Environment/Platforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.3387, 2.63901, -15.5084)
 material_override = SubResource("StandardMaterial3D_tipki")
 use_collision = true
 size = Vector3(4.46301, 1, 4.30469)
 
-[node name="Platform2" type="CSGBox3D" parent="Environment"]
+[node name="Platform2" type="CSGBox3D" parent="Environment/Platforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6267, 2.5, 2)
 material_override = SubResource("StandardMaterial3D_o6xl0")
 use_collision = true
@@ -112,10 +116,31 @@ label_settings = SubResource("LabelSettings_tipki")
 script = ExtResource("7_85g3d")
 player_gun = NodePath("../../Player/Head/Gun/Barrel/ProjectileShootingComponent")
 
+[node name="PlayerCrosshair" type="TextureRect" parent="UI"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 4.0
+offset_top = -8.0
+offset_right = 20.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_85g3d")
+
 [node name="Enemies" type="Node" parent="."]
 
 [node name="DummyTarget" parent="Enemies" groups=["enemy"] instance=ExtResource("6_tefeu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.11434, 0.598398, -9)
+
+[node name="DummyTarget3" parent="Enemies" groups=["enemy"] instance=ExtResource("6_tefeu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.76625, 2.93271, 5)
+
+[node name="DummyTarget4" parent="Enemies" groups=["enemy"] instance=ExtResource("6_tefeu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.76625, 2.2255, -9.7395)
 
 [node name="DummyTarget2" parent="Enemies" groups=["enemy"] instance=ExtResource("6_tefeu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.11434, 1.38339, -4.62079)
@@ -124,4 +149,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.11434, 1.38339, -4.62079)
 [editable path="Player/Head/Gun"]
 [editable path="Player/Head/Gun/Barrel/ProjectileShootingComponent"]
 [editable path="Enemies/DummyTarget"]
+[editable path="Enemies/DummyTarget3"]
+[editable path="Enemies/DummyTarget4"]
 [editable path="Enemies/DummyTarget2"]
