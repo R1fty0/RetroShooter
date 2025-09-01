@@ -10,7 +10,6 @@ height = 1.8
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_8afob")
-dash_speed = 100.0
 jump_velocity = 8.0
 
 [node name="PhysicalCollider" type="CollisionShape3D" parent="."]
@@ -29,6 +28,9 @@ transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0.404294, -0.11731, 
 projectile_damage = 20.0
 
 [node name="DashController" parent="." instance=ExtResource("3_lvxji")]
+dash_speed = 25.0
+dash_recharge_time = 2.25
+max_dash_count = 2
 
 [editable path="Head/Gun"]
 [editable path="Head/Gun/Barrel/ProjectileShootingComponent"]

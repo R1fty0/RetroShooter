@@ -6,7 +6,6 @@ const GROUND_DEACCEL: float = 8.0
 
 
 @export_group("Movement")
-@export var dash_speed: float = 23.0
 ## Normal speed.
 @export var run_speed : float = 7.0
 ## Speed of jump.
@@ -26,6 +25,7 @@ const FOV_CHANGE: float = 1.5
 var mouse_captured : bool = false
 var look_rotation : Vector2
 var move_speed : float = 0.0
+var dash_speed: float = 23.0
 
 ## IMPORTANT REFERENCES
 @onready var head: Node3D = $Head
@@ -35,6 +35,8 @@ var move_speed : float = 0.0
 var dashing: bool = false
 
 func _ready() -> void:
+	SignalBus.connect("start_player_dash", _start_dash)
+	SignalBus.connect("end_player_dash", _end_dash)
 	look_rotation.y = rotation.y
 	look_rotation.x = head.rotation.x
 	move_speed = run_speed
@@ -52,10 +54,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 
 func _physics_process(delta: float) -> void:
+	# Apply gravity if we are in the air. 
 	if not is_on_floor():
 		var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 		velocity.y -= gravity * delta
 	
+	# Start jumping. 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
 
@@ -81,12 +85,13 @@ func _physics_process(delta: float) -> void:
 	# Camera headbobbing.
 	current_bob_time += delta * velocity.length() * float(is_on_floor())
 	camera.transform.origin = _get_camera_next_headbob_pos(current_bob_time)
-	move_and_slide()
 	
 	# Camera fov changes.
 	var velocity_clamped = clamp(velocity.length(), 0.5, dash_speed * 2)
 	var target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped
 	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
+	
+	move_and_slide()
 
 func _get_camera_next_headbob_pos(bob_time):
 	var pos = Vector3.ZERO
@@ -116,9 +121,8 @@ func release_mouse():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	mouse_captured = false
 
-
-func _on_dash_controller_end_dash() -> void:
+func _end_dash() -> void:
 	dashing = false
 
-func _on_dash_controller_start_dash() -> void:
+func _start_dash() -> void:
 	dashing = true
