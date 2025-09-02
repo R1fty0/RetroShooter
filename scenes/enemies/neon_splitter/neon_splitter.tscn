@@ -1,10 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://05yy7j4syiig"]
+[gd_scene load_steps=17 format=3 uid="uid://05yy7j4syiig"]
 
 [ext_resource type="Texture2D" uid="uid://cim53nvvnjq43" path="res://assets/textures/prototype/texture_06.png" id="1_ljxip"]
 [ext_resource type="PackedScene" uid="uid://c6b1b7qmtrblg" path="res://scenes/enemies/neon_splitter/projectile/neon_spiltter_projectile.tscn" id="3_ae82n"]
 [ext_resource type="Script" uid="uid://dqgtdhcgutyyh" path="res://common/components/health/health_component.gd" id="3_icg7l"]
 [ext_resource type="Script" uid="uid://cxe6wigtm4atd" path="res://common/components/hitbox/hitbox.gd" id="4_ae82n"]
 [ext_resource type="PackedScene" uid="uid://cuknilvisd6ti" path="res://common/components/projectile_shooting/projectile_shooting_component.tscn" id="4_gvb5u"]
+[ext_resource type="Script" uid="uid://cptens7sue3px" path="res://common/state_machine/state_machine.gd" id="6_ae82n"]
+[ext_resource type="Script" uid="uid://nmlxe5edymmh" path="res://scenes/enemies/neon_splitter/states/idle.gd" id="7_4gsnm"]
+[ext_resource type="Script" uid="uid://bnjgdh0gf7lv" path="res://scenes/enemies/neon_splitter/states/move.gd" id="8_2scqd"]
+[ext_resource type="Script" uid="uid://g1jd1w7xh1j0" path="res://scenes/enemies/neon_splitter/states/shoot.gd" id="9_4jfi1"]
+[ext_resource type="Script" uid="uid://bbrws763xwryv" path="res://scenes/enemies/neon_splitter/states/aim.gd" id="9_k1jl5"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_7saq8"]
 
@@ -78,5 +83,25 @@ tac_reload_time = 0.0
 
 [node name="ProjectileSpawnPoint" parent="ProjectileShootingComponent" index="0"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0.633012)
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("6_ae82n")
+metadata/_custom_type_script = "uid://cptens7sue3px"
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("7_4gsnm")
+metadata/_custom_type_script = "uid://2fgtrgc72fx0"
+
+[node name="Move" type="Node" parent="StateMachine"]
+script = ExtResource("8_2scqd")
+metadata/_custom_type_script = "uid://2fgtrgc72fx0"
+
+[node name="Aim" type="Node" parent="StateMachine"]
+script = ExtResource("9_k1jl5")
+metadata/_custom_type_script = "uid://2fgtrgc72fx0"
+
+[node name="Shoot" type="Node" parent="StateMachine"]
+script = ExtResource("9_4jfi1")
+metadata/_custom_type_script = "uid://2fgtrgc72fx0"
 
 [editable path="ProjectileShootingComponent"]
