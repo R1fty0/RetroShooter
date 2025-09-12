@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PlayerResource" load_steps=2 format=3 uid="uid://diuj3oo3b5733"]
+
+[ext_resource type="Script" uid="uid://cxo5hiby3e5ka" path="res://scripts/resources/player_resource.gd" id="1_oykkh"]
+
+[resource]
+script = ExtResource("1_oykkh")
+move_speed = 7.0
+jump_velocity = 9.0
+dash_velocity = 23.0
+camera_sens = 0.002
+bob_freq = 2.0
+bob_amp = 0.08
+bob_time = 0.02
+dash_speed = 100.0
+dash_duration = 0.02
+dash_recharge_time = 1.0
+max_dash_count = 3
+metadata/_custom_type_script = "uid://cxo5hiby3e5ka"

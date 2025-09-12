@@ -1,14 +1,9 @@
 extends Node
 class_name DashController
 
-## How fast does the player move when dashing. 
-@export var dash_speed: float = 100.0
-## How long does a single dash last for. 
-@export var dash_duration: float = 0.02
-## How long does it take for each dash to recharge 
-@export var dash_recharge_time: float = 1.0
-## How many potenial dashes can the player have at one time. 
-@export var max_dash_count: int = 3
+
+## The resource of the object that can dash.
+@export var object_resource: Resource
 
 
 ## References
@@ -23,14 +18,13 @@ var can_dash: bool = true
 var dash_was_recharging: bool = false
 
 func _ready() -> void:
-	current_dash_count = max_dash_count
-	player.dash_speed = dash_speed
+	current_dash_count = object_resource.max_dash_count
 	# Set up dash recharge timer.
-	dash_recharge_timer.wait_time = dash_recharge_time
+	dash_recharge_timer.wait_time = object_resource.dash_recharge_time
 	dash_recharge_timer.autostart = false
 	dash_recharge_timer.one_shot = true
 	# Set up dash duration timer. 
-	dash_duration_timer.wait_time = dash_duration
+	dash_duration_timer.wait_time = object_resource.dash_duration
 	dash_duration_timer.autostart = false
 	dash_duration_timer.one_shot = true
 
@@ -64,6 +58,6 @@ func _on_dash_recharge_timer_timeout() -> void:
 	if current_dash_count <= 0:
 		can_dash = true
 	# Start another recharge if the player is not full on dashes.
-	if current_dash_count < max_dash_count:
+	if current_dash_count < object_resource.max_dash_count:
 		dash_recharge_timer.start()
 	current_dash_count += 1

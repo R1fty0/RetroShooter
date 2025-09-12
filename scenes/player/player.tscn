@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8ixtymwutihb"]
+[gd_scene load_steps=9 format=3 uid="uid://b8ixtymwutihb"]
 
 [ext_resource type="Script" uid="uid://bhscu0608f1kp" path="res://scenes/player/player.gd" id="1_8afob"]
+[ext_resource type="Resource" uid="uid://diuj3oo3b5733" path="res://data/player_resource.tres" id="2_75vfm"]
 [ext_resource type="PackedScene" uid="uid://dpcel3p2m0p2l" path="res://scenes/player/gun/gun.tscn" id="3_gmlin"]
 [ext_resource type="PackedScene" uid="uid://wi4yg3d0clp1" path="res://scenes/player/dash/dash_controller.tscn" id="3_lvxji"]
 [ext_resource type="Script" uid="uid://dqgtdhcgutyyh" path="res://common/components/health/health_component.gd" id="4_p47bc"]
@@ -16,7 +17,7 @@ height = 1.7849
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_8afob")
-jump_velocity = 8.0
+player_resource = ExtResource("2_75vfm")
 
 [node name="PhysicalCollider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -34,9 +35,7 @@ transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0.404294, -0.11731, 
 projectile_damage = 20.0
 
 [node name="DashController" parent="." instance=ExtResource("3_lvxji")]
-dash_speed = 25.0
-dash_recharge_time = 2.25
-max_dash_count = 4
+object_resource = ExtResource("2_75vfm")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_p47bc")
