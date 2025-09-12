@@ -27,7 +27,8 @@ folder_colors={
 "res://common/": "purple",
 "res://data/": "pink",
 "res://scenes/": "yellow",
-"res://scripts/": "green"
+"res://scripts/": "green",
+"res://shaders/": "gray"
 }
 
 [global_group]

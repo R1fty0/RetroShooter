@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bnc565g0rcg1r"]
+[gd_scene load_steps=34 format=3 uid="uid://bnc565g0rcg1r"]
 
 [ext_resource type="PackedScene" uid="uid://b8ixtymwutihb" path="res://scenes/player/player.tscn" id="1_5rc8b"]
 [ext_resource type="Texture2D" uid="uid://c2nkdho5d1ng0" path="res://assets/textures/prototype/texture_03.png" id="2_kby6h"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cr3bjsvyqo2uj" path="res://scenes/ui/health_bar/health_bar.tscn" id="10_7ervy"]
 [ext_resource type="Script" uid="uid://dgh4fb172joau" path="res://scenes/ui/health_bar/health_bar.gd" id="11_txg7v"]
 [ext_resource type="PackedScene" uid="uid://qb1hjy67bcgj" path="res://scenes/dummy_target/dummy_target.tscn" id="12_j3lci"]
+[ext_resource type="Shader" uid="uid://bjtscbkktgagi" path="res://shaders/cel_shading.gdshader" id="15_rr5ke"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -60,6 +61,39 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_5rc8b"]
 font_color = Color(1, 0, 0, 1)
 
+[sub_resource type="Gradient" id="Gradient_kuiqi"]
+offsets = PackedFloat32Array(0.492063, 0.555556)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_u5idm"]
+gradient = SubResource("Gradient_kuiqi")
+
+[sub_resource type="Gradient" id="Gradient_aiq5i"]
+offsets = PackedFloat32Array(0.68254, 0.825397)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3o1ak"]
+gradient = SubResource("Gradient_aiq5i")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rr5ke"]
+render_priority = 0
+shader = ExtResource("15_rr5ke")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("4_rr5ke")
+shader_parameter/albedo_texture_size = Vector2i(0, 0)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/color_gradient = SubResource("GradientTexture1D_u5idm")
+shader_parameter/frensel_gradient = SubResource("GradientTexture1D_3o1ak")
+
+[sub_resource type="BoxMesh" id="BoxMesh_kuiqi"]
+material = SubResource("ShaderMaterial_rr5ke")
+
 [node name="Main" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("1_5rc8b")]
@@ -68,6 +102,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.94828, 0, 0)
 [node name="ProjectileShootingComponent" parent="Player/Head/Gun/Barrel" index="1"]
 std_reload_time = 1.0
 tac_reload_time = 0.5
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Player"]
 
 [node name="Environment" type="Node" parent="."]
 
@@ -100,12 +136,6 @@ size = Vector3(4.46301, 1, 4.30469)
 
 [node name="Platform4" type="CSGBox3D" parent="Environment/Platforms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3387, 2.63901, 3.99799)
-material_override = SubResource("StandardMaterial3D_tipki")
-use_collision = true
-size = Vector3(4.46301, 1, 4.30469)
-
-[node name="Platform5" type="CSGBox3D" parent="Environment/Platforms"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.3387, 2.63901, -15.5084)
 material_override = SubResource("StandardMaterial3D_tipki")
 use_collision = true
 size = Vector3(4.46301, 1, 4.30469)
@@ -243,6 +273,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.76625, 2.2255, -9.7395)
 
 [node name="DummyTarget2" parent="Enemies" groups=["enemy"] instance=ExtResource("12_j3lci")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.11434, 1.38339, -4.62079)
+
+[node name="CellShadingTestCube" type="MeshInstance3D" parent="."]
+transform = Transform3D(5.49066, 0, 0, 0, 1, 0, 0, 0, -0.941875, -0.0799391, 1.3731, -11.78)
+mesh = SubResource("BoxMesh_kuiqi")
 
 [editable path="Player"]
 [editable path="Player/Head/Gun"]
