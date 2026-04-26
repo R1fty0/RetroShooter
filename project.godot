@@ -10,9 +10,9 @@ config_version=5
 
 [application]
 
-config/name="retroshooter"
+config/name="retro-shooter"
 run/main_scene="uid://bnc565g0rcg1r"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
